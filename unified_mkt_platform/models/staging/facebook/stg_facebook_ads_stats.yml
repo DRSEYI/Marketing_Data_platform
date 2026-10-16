@@ -1,0 +1,22 @@
+version: 2
+
+models:
+  - name: stg_facebook_ads_stats
+    description: "Facebook daily advertising statistics with standardised types. Missing metrics remain NULL."
+
+    columns:
+      - name: ad_id
+        data_tests:
+          - not_null
+
+      - name: account_id
+        data_tests:
+          - not_null
+
+      - name: reporting_date
+        data_tests:
+          - not_null
+
+      - name: spend
+        data_tests:
+          - not_null

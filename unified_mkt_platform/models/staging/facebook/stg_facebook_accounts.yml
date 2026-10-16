@@ -1,0 +1,26 @@
+version: 2
+
+models:
+  - name: stg_facebook_accounts
+    description: "Facebook advertising accounts and their account currencies."
+
+    columns:
+      - name: account_id
+        description: "Source account identifier. Expected to identify one account."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: account_name
+        description: "Advertising account name."
+
+      - name: currency_code
+        description: "Account currency used to interpret Facebook advertising spend."
+        data_tests:
+          - not_null
+
+      - name: account_created_at
+        description: "Source timestamp when the account was created."
+
+      - name: account_updated_at
+        description: "Source timestamp when the account was last updated."

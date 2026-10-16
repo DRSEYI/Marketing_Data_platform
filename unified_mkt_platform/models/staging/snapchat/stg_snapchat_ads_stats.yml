@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: stg_snapchat_ads_stats
+    description: "Snapchat daily advertising statistics by ad, date, country and currency. Missing clicks remain NULL."
+
+    columns:
+      - name: ad_id
+        data_tests:
+          - not_null
+
+      - name: reporting_date
+        data_tests:
+          - not_null
+
+      - name: currency_code
+        data_tests:
+          - not_null
+
+      - name: country_code
+        data_tests:
+          - not_null
+
+      - name: spend
+        data_tests:
+          - not_null
+
+      - name: impressions
+        data_tests:
+          - not_null
+
+      

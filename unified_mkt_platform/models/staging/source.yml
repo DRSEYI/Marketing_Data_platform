@@ -1,0 +1,33 @@
+version: 2
+
+sources:
+  - name: facebook
+    description: "Raw Facebook advertising data loaded from  CSV files."
+    database: marketing_dev
+    schema: raw
+    config:
+      enabled: true
+      meta:
+        owner: "@cde_engineer"
+
+    tables:
+      - name: facebook_accounts
+      - name: facebook_campaigns
+      - name: facebook_ad_groups
+      - name: facebook_ads
+      - name: facebook_ads_stats
+
+  - name: snapchat
+    description: "Raw Snapchat advertising data loaded from supplied CSV files."
+    database: marketing_dev
+    schema: raw
+    config:
+      enabled: true
+      meta:
+        owner: "@cde_engineer"
+
+    tables:
+      - name: snapchat_campaigns
+      - name: snapchat_ad_groups
+      - name: snapchat_ads
+      - name: snapchat_ads_stats
