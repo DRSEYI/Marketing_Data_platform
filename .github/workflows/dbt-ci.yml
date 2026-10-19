@@ -21,7 +21,7 @@ jobs:
 
     env:
       UV_PYTHON: "3.12.9"
-      DBT_PROFILES_DIR: ${{ runner.temp }}/dbt-profile
+      DBT_PROFILES_DIR: ${{ github.workspace }}/.ci-runtime-profile
       DBT_CI_SCHEMA: ci_pr_${{ github.event.pull_request.number }}
 
     steps:
