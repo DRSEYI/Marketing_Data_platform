@@ -1,0 +1,41 @@
+version: 2
+
+models:
+  - name: int_facebook_ads_performance
+    description: >
+      Facebook advertising performance enriched with the supplied
+      ad, campaign, ad group and account attributes.
+      Missing metrics remain NULL. Spend remains in account currency.
+
+    columns:
+      - name: ad_id
+        data_tests:
+          - not_null
+
+      - name: account_id
+        data_tests:
+          - not_null
+
+      - name: reporting_date
+        data_tests:
+          - not_null
+
+      - name: currency_code
+        data_tests:
+          - not_null
+
+      - name: spend
+        data_tests:
+          - not_null
+
+      - name: is_ad_missing
+        description: "True when the statistics record has no matching ad."
+
+      - name: is_campaign_missing
+        description: "True when no campaign record matches the associated ad."
+
+      - name: is_ad_group_missing
+        description: "True when no ad group record matches the associated ad."
+
+      - name: is_account_missing
+        description: "True when the statistics account has no matching account."

@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: stg_facebook_ads
+    description: "Facebook ads with campaign, ad group and account identifiers."
+
+    columns:
+      - name: ad_id
+        description: "Facebook ad identifier."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: campaign_id
+        description: "Campaign associated with the ad."
+        data_tests:
+          - not_null
+
+      - name: ad_group_id
+        description: "Ad group associated with the ad."
+        data_tests:
+          - not_null
+
+      - name: account_id
+        description: "Advertising account associated with the ad."
+        data_tests:
+          - not_null
+
+      

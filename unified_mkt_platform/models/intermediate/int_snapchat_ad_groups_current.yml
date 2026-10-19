@@ -1,0 +1,15 @@
+version: 2
+
+models:
+  - name: int_snapchat_ad_groups_current
+    description: "Latest available source record per Snapchat ad group. Used for current-state reporting joins."
+
+    columns:
+      - name: ad_group_id
+        data_tests:
+          - not_null
+          - unique
+
+      - name: campaign_id
+        data_tests:
+          - not_null
