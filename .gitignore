@@ -1,0 +1,10 @@
+.env
+.env.*
+!.env.example
+**/profiles.yml
+**/.user.yml
+.venv/
+**/target/
+**/logs/
+**/dbt_packages/
+**/edr_target/
