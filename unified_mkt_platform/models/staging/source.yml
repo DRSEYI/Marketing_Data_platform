@@ -3,7 +3,7 @@ version: 2
 sources:
   - name: facebook
     description: "Raw Facebook advertising data loaded from  CSV files."
-    database: marketing_dev
+    database: "{{ var('raw_catalog', 'marketing_dev') }}"
     schema: raw
     config:
       enabled: true
@@ -19,7 +19,7 @@ sources:
 
   - name: snapchat
     description: "Raw Snapchat advertising data loaded from supplied CSV files."
-    database: marketing_dev
+    database: "{{ var('raw_catalog', 'marketing_dev') }}"
     schema: raw
     config:
       enabled: true
