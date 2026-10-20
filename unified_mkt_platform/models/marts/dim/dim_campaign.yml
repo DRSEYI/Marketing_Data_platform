@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: dim_campaign
+    description: >
+      Current campaign descriptions from the supplied Facebook and
+      Snapchat records. Grain is one row per platform and campaign ID.
+      Includes campaigns without performance records.
+      Historical campaign name changes are not tracked.
+
+    columns:
+      - name: campaign_key
+        description: "Stable key combining platform code and source campaign ID."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: platform_code
+        description: "Advertising platform supplying the campaign."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['facebook', 'snapchat']
+
+      - name: campaign_id
+        description: "Source campaign identifier; interpreted within its platform."
+        data_tests:
+          - not_null
+
+      - name: campaign_name
+        description: "Campaign name from the supplied source record."

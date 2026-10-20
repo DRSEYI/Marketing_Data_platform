@@ -1,0 +1,15 @@
+version: 2
+
+models:
+  - name: stg_facebook_campaigns
+    description: "Facebook campaign identifiers, names and source update timestamps."
+
+    columns:
+      - name: campaign_id
+        description: "Facebook campaign identifier. Uniqueness must be checked before downstream joins."
+        data_tests:
+          - not_null
+          - unique
+
+
+

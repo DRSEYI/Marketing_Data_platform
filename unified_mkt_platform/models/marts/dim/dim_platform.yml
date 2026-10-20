@@ -1,0 +1,29 @@
+version: 2
+
+models:
+  - name: dim_platform
+    description: >
+      Advertising platform dimension.
+      Grain is one row per supported advertising platform.
+      Fixed keys remain stable across rebuilds.
+
+    columns:
+      - name: platform_key
+        description: "Stable platform key: 1 for Facebook, 2 for Snapchat."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: platform_code
+        description: "Platform identifier matching the unified performance model."
+        data_tests:
+          - not_null
+          - unique
+          - accepted_values:
+              arguments:
+                values: ['facebook', 'snapchat']
+
+      - name: platform_name
+        description: "Display name for reports."
+        data_tests:
+          - not_null

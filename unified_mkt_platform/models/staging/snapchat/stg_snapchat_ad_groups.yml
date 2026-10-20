@@ -1,0 +1,19 @@
+version: 2
+
+models:
+  - name: stg_snapchat_ad_groups
+    description: "Snapchat ad groups with their campaign identifiers and source update timestamps."
+
+    columns:
+      - name: _surrogate_key
+        description: "Surrogate key supplied in the source file; retained unchanged."
+
+      - name: ad_group_id
+        description: "Snapchat ad group identifier."
+        data_tests:
+          - not_null
+
+      - name: campaign_id
+        description: "Campaign associated with the ad group."
+        data_tests:
+          - not_null

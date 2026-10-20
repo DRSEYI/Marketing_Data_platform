@@ -1,0 +1,62 @@
+name: dbt CI
+
+on:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: dbt-ci-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
+jobs:
+  dbt-build:
+    name: Build and test dbt
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    env:
+      UV_PYTHON: "3.12.9"
+      DBT_PROFILES_DIR: ${{ github.workspace }}/.ci-runtime-profile
+      DBT_CI_SCHEMA: ci_pr_${{ github.event.pull_request.number }}
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@c771a70e6277c0a99b617c7a806ffedaca235ff9
+        with:
+          version: "0.12.21"
+
+      - name: Install Python
+        run: uv python install 3.12.9
+
+      - name: Install locked dependencies
+        run: uv sync --locked
+
+      - name: Prepare CI profile
+        run: |
+          mkdir -p "$DBT_PROFILES_DIR"
+          cp unified_mkt_platform/ci/profiles.yml.example "$DBT_PROFILES_DIR/profiles.yml"
+
+      - name: Validate connection and build models
+        working-directory: unified_mkt_platform
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_HTTP_PATH: ${{ secrets.DATABRICKS_HTTP_PATH }}
+          DATABRICKS_CLIENT_ID: ${{ secrets.DATABRICKS_CLIENT_ID }}
+          DBT_ENV_SECRET_DATABRICKS_CLIENT_SECRET: ${{ secrets.DBT_ENV_SECRET_DATABRICKS_CLIENT_SECRET }}
+        run: |
+          uv run --locked dbt deps --target ci
+          git diff --exit-code -- package-lock.yml
+          uv run --locked dbt debug --target ci
+          uv run --locked dbt build --target ci --fail-fast
+
+      - name: Remove temporary profile
+        if: always()
+        run: rm -rf "$DBT_PROFILES_DIR"

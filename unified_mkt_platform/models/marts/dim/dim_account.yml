@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: dim_account
+    description: >
+      Advertising account dimension.
+      Grain is one row per platform and account ID.
+      Facebook accounts come from the account staging model.
+      Snapchat accounts are distinct IDs from campaign records.
+
+    columns:
+      - name: account_key
+        description: "Stable key combining platform code and source account ID."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: platform_code
+        description: "Advertising platform associated with the account."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['facebook', 'snapchat']
+
+      - name: account_id
+        description: "Source account identifier within its platform."
+        data_tests:
+          - not_null
+
+      - name: account_name
+        description: "Supplied Facebook account name; unavailable for Snapchat."

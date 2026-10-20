@@ -1,0 +1,17 @@
+version: 2
+
+models:
+  - name: stg_snapchat_campaigns
+    description: "Snapchat campaigns and their advertising account identifiers."
+
+    columns:
+      - name: campaign_id
+        description: "Snapchat campaign identifier."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: account_id
+        description: "Advertising account associated with the campaign."
+        data_tests:
+          - not_null

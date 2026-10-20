@@ -15,12 +15,12 @@ staged as (
         upper(trim(ad_currency_code)) as currency_code,
 
         cast(
-            nullif(nullif(lower(trim(account_created_at)), 'null'), '')
+            trim(account_created_at)
             as timestamp
         ) as account_created_at,
 
         cast(
-            nullif(nullif(lower(trim(account_updated_at)), 'null'), '')
+            trim(account_updated_at)
             as timestamp
         ) as account_updated_at,
 

@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: dim_ad_group
+    description: >
+      Current ad group descriptions across Facebook and Snapchat.
+      Grain is one row per platform and ad group ID.
+      Snapchat uses the latest available source version.
+      Historical attribute changes are not tracked.
+
+    columns:
+      - name: ad_group_key
+        description: "Stable key combining platform code and source ad group ID."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: platform_code
+        description: "Advertising platform supplying the ad group."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['facebook', 'snapchat']
+
+      - name: ad_group_id
+        description: "Source ad group identifier within its platform."
+        data_tests:
+          - not_null
+
+      - name: ad_group_name
+        description: "Current ad group name from the supplied records."
