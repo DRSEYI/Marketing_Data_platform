@@ -5,8 +5,13 @@
         {{ target.schema }}
 
     {%- elif node.package_name == 'unified_mkt_platform'
-          and target.name == 'dev'
-          and target.database == 'marketing_dev' -%}
+          and (
+              (target.name == 'dev'
+               and target.database == 'marketing_dev')
+              or
+              (target.name == 'prod'
+               and target.database == 'marketing_prod')
+          ) -%}
 
         {{ custom_schema_name | trim }}
 
