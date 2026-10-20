@@ -1,0 +1,76 @@
+version: 2
+
+models:
+  - name: marketing_performance
+    description: >
+      Reporting view joining the daily performance fact to its dimensions.
+      Grain is platform, account, ad, reporting date, currency and country
+      where available. Descriptive attributes are current-state.
+      Facebook covers 2025 and Snapchat covers part of 2024 in the
+      supplied extracts, so totals are not same-period comparisons.
+      Spend retains source currency and units pending confirmation.
+      Missing metrics remain NULL.
+
+    columns:
+      - name: ad_performance_key
+        description: "Unique performance record identifier."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: reporting_date
+        description: "Date on which performance was reported."
+        data_tests:
+          - not_null
+
+      - name: platform_code
+        description: "Source platform identifier."
+        data_tests:
+          - not_null
+
+      - name: platform_name
+        description: "Display name of the advertising platform."
+
+      - name: account_id
+        description: "Source account identifier within the platform."
+
+      - name: account_name
+        description: "Account name; unavailable for Snapchat."
+
+      - name: campaign_id
+        description: "Source campaign identifier within the platform."
+
+      - name: campaign_name
+        description: "Current supplied campaign name."
+
+      - name: ad_group_id
+        description: "Source ad group identifier within the platform."
+
+      - name: ad_group_name
+        description: "Current supplied ad group name."
+
+      - name: ad_id
+        description: "Source ad identifier within the platform."
+
+      - name: ad_name
+        description: "Current supplied ad name."
+
+      - name: ad_status
+        description: "Supplied Facebook status; unavailable for Snapchat."
+
+      - name: currency_code
+        description: "Spend currency. Do not sum spend across currencies."
+        data_tests:
+          - not_null
+
+      - name: country_code
+        description: "Source country breakdown; unavailable for Facebook."
+
+      - name: spend
+        description: "Reported advertising spend in source currency and units."
+
+      - name: impressions
+        description: "Reported impressions. NULL means missing, not zero."
+
+      - name: clicks
+        description: "Reported clicks. NULL means missing, not zero."
