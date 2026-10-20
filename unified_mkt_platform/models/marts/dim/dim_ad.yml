@@ -1,0 +1,38 @@
+version: 2
+
+models:
+  - name: dim_ad
+    description: >
+      Current ad descriptions from the supplied platform records.
+      Grain is one row per platform and ad ID.
+      Includes ads without performance records.
+      Historical attribute changes are not tracked.
+
+    columns:
+      - name: ad_key
+        description: "Stable key combining platform code and source ad ID."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: platform_code
+        description: "Advertising platform supplying the ad."
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['facebook', 'snapchat']
+
+      - name: ad_id
+        description: "Source ad identifier within its platform."
+        data_tests:
+          - not_null
+
+      - name: ad_name
+        description: "Ad name from the supplied record."
+
+      - name: ad_status
+        description: >
+          Status from the supplied Facebook record.
+          Unavailable for Snapchat. Does not establish the ad's
+          status on each historical performance date.

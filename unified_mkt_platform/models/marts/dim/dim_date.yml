@@ -1,0 +1,36 @@
+version: 2
+
+models:
+  - name: dim_date
+    description: >
+      Continuous calendar covering the earliest through latest
+      reporting dates in the unified performance model.
+      Grain is one row per calendar date.
+
+    columns:
+      - name: date_key
+        description: "Stable integer date key in YYYYMMDD format."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: calendar_date
+        description: "Calendar date."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: calendar_year
+        description: "Calendar year."
+
+      - name: calendar_quarter
+        description: "Calendar quarter from 1 to 4."
+
+      - name: month_number
+        description: "Calendar month from 1 to 12."
+
+      - name: month_name
+        description: "Full month name."
+
+      - name: day_of_month
+        description: "Day of the month from 1 to 31."

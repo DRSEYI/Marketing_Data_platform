@@ -1,0 +1,42 @@
+version: 2
+
+models:
+  - name: int_ads_performance_unified
+    description: >
+      Facebook and Snapchat advertising performance combined without
+      aggregation. Grain is platform, account, ad, reporting date,
+      currency and country where available. Facebook has no country
+      breakdown in the supplied data. Spend retains source units and
+      currency; cross-platform monetary comparability is not yet confirmed.
+
+    columns:
+      - name: platform
+        data_tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['facebook', 'snapchat']
+
+      - name: account_id
+        data_tests:
+          - not_null
+
+      - name: ad_id
+        data_tests:
+          - not_null
+
+      - name: reporting_date
+        data_tests:
+          - not_null
+
+      - name: currency_code
+        data_tests:
+          - not_null
+
+      - name: country_code
+        description: "Source country code; NULL for Facebook because it is unavailable."
+
+      - name: is_country_available
+        description: "Whether the source provides a country breakdown."
+        data_tests:
+          - not_null

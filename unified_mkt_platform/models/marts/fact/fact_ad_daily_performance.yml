@@ -1,0 +1,100 @@
+version: 2
+
+models:
+  - name: fact_ad_daily_performance
+    description: >
+      Advertising performance fact.
+      Grain is one platform, account, ad, reporting date,
+      currency and country where available.
+      Dimensions describe current supplied attributes.
+      Missing metrics remain NULL.
+      Spend retains source currency and units pending confirmation.
+
+    columns:
+      - name: ad_performance_key
+        description: "Stable hash of the performance grain."
+        data_tests:
+          - not_null
+          - unique
+
+      - name: date_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_date')
+                field: date_key
+
+      - name: platform_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_platform')
+                field: platform_key
+
+      - name: account_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_account')
+                field: account_key
+
+      - name: campaign_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_campaign')
+                field: campaign_key
+
+      - name: ad_group_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_ad_group')
+                field: ad_group_key
+
+      - name: ad_key
+        data_tests:
+          - not_null
+          - relationships:
+              arguments:
+                to: ref('dim_ad')
+                field: ad_key
+
+      - name: currency_code
+        description: "Currency of the reported spend."
+        data_tests:
+          - not_null
+
+      - name: country_code
+        description: "Source country breakdown; unavailable for Facebook."
+
+      - name: is_country_available
+        description: "Whether the source provides a country breakdown."
+
+      - name: spend
+        description: "Advertising spend in source currency and units."
+        data_tests:
+          - not_null
+
+      - name: impressions
+        description: "Reported impressions; NULL indicates missing data."
+
+      - name: clicks
+        description: "Reported clicks; NULL indicates missing data."
+
+      - name: is_impressions_missing
+        description: "True when impressions are missing."
+
+      - name: is_clicks_missing
+        description: "True when clicks are missing."
+
+      - name: _source_file
+        description: "Original performance CSV path."
+
+      - name: _ingested_at
+        description: "Timestamp when the performance record was ingested."
