@@ -42,7 +42,7 @@ jobs:
       - name: Prepare CI profile
         run: |
           mkdir -p "$DBT_PROFILES_DIR"
-          cp ci/profiles.yml.example "$DBT_PROFILES_DIR/profiles.yml"
+          cp unified_mkt_platform/ci/profiles.yml.example "$DBT_PROFILES_DIR/profiles.yml"
 
       - name: Validate connection and build models
         working-directory: unified_mkt_platform
