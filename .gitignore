@@ -9,3 +9,4 @@
 **/dbt_packages/
 **/edr_target/
 .ci-runtime-profile/
+.prod-runtime-profile/
